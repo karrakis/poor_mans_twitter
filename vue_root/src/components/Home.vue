@@ -9,14 +9,20 @@
       </form>
     </div>
     <button data-testid="getTweetsButton" class="submit-button" @click="fetchTweets">Refresh</button>
+    <input v-model="searchText" class="form-control" placeholder="Search table">
     <div class="boxotweets">
+      {{sortKey}}
       <table>
         <tr>
-          <th>Name</th>
+          <th>
+            <a href="#" @click="sortBy('name')">Name</a>
+          </th>
           <th>Tweet</th>
-          <th>Posted At</th>
+          <th>
+            <a href="#" @click="sortBy('timestamp')">Posted At</a>
+          </th>
         </tr>
-        <tr v-for="tweet in tweets" :key="tweet.id">
+        <tr v-for="tweet in tweets" :key="tweet.timestamp">
           <td>{{tweet.name}}</td>
           <td>{{tweet.tweet}}</td>
           <td>{{tweet.timestamp}}</td>
@@ -33,6 +39,8 @@ export default {
   props: {},
   data: function() {
     return {
+      searchText: '',
+      sortKey: 'timestamp',
       tweets: []
     }
   },
@@ -50,7 +58,12 @@ export default {
       this.$http.get(
         '/tweetstweets/'
       ).then(response => this.tweets = response.data);
-    }
+    },
+    sortBy: function(sortKey) {
+      this.tweets = this.tweets.sort((a, b) => {
+        return a[sortKey] > b[sortKey] ? 1 : -1;
+      })
+    },
   }
 }
 </script>
