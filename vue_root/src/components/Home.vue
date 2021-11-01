@@ -5,17 +5,29 @@
       <form class="tweeterbox-form" @submit.prevent="sendTweet">
         <input name="name" v-model="name" class="namebox" placeholder="name"/>
         <textarea name="tweet" v-model="tweet" class="tweeterbox" placeholder="tweet!"/>
-        <button class="submit-button">Submit</button>
+        <button data-testid="postTweetButton" class="submit-button">Submit</button>
       </form>
     </div>
-    <button class="submit-button" @click="fetchTweets">Refresh</button>
+    <button data-testid="getTweetsButton" class="submit-button" @click="fetchTweets">Refresh</button>
     <div class="boxotweets">
-      {{ tweets }}
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Tweet</th>
+          <th>Posted At</th>
+        </tr>
+        <tr v-for="tweet in tweets" :key="tweet.id">
+          <td>{{tweet.name}}</td>
+          <td>{{tweet.tweet}}</td>
+          <td>{{tweet.timestamp}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'Home',
   props: {},
