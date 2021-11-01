@@ -11,15 +11,14 @@
     <button data-testid="getTweetsButton" class="submit-button" @click="fetchTweets">Refresh</button>
     <input v-model="searchText" class="form-control" placeholder="Search table">
     <div class="boxotweets">
-      {{sortKey}}
       <table>
         <tr>
           <th>
-            <a href="#" @click="sortBy('name')">Name</a>
+            <a data-testid="sort-by-name" href="#" @click="sortBy('name')">Name</a>
           </th>
           <th>Tweet</th>
           <th>
-            <a href="#" @click="sortBy('timestamp')">Posted At</a>
+            <a data-testid="sort-by-timestamp" href="#" @click="sortBy('timestamp')">Posted At</a>
           </th>
         </tr>
         <tr v-for="tweet in tweets" :key="tweet.timestamp">
