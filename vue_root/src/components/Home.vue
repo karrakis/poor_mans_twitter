@@ -44,6 +44,9 @@ export default {
       tweets: []
     }
   },
+  mounted() {
+    this.fetchTweets();
+  },
   methods: {
     async sendTweet (event) {
       await this.$http.post(
@@ -52,17 +55,20 @@ export default {
           name: event.target.elements.name.value,
           tweet: event.target.elements.tweet.value 
         }
-      );
+      ).then(() => {
+        this.fetchTweets();
+        });
     },
     fetchTweets () {
       this.$http.get(
         '/tweetstweets/'
-      ).then(response => this.tweets = response.data);
+      ).then(response => this.tweets = response.data).then(() => this.sortBy(this.sortKey));
     },
     sortBy: function(sortKey) {
       this.tweets = this.tweets.sort((a, b) => {
         return a[sortKey] > b[sortKey] ? 1 : -1;
       })
+      this.sortKey = sortKey;
     },
   }
 }
