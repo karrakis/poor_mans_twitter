@@ -79,11 +79,13 @@ export default {
   }
 
   .submit-button {
-    padding: 2rem 4rem;
+    padding: 0.5rem 1rem;
   }
 
   .tweeterbox-form {
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     min-height: 100px;
   }
   .tweeterbox {
@@ -94,7 +96,6 @@ export default {
 
   .boxotweets {
     margin-top: 7px;
-    width: 50%;
     height: auto;
     min-height: 100px;
     min-width: 100px;
