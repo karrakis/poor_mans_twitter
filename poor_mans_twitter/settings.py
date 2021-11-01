@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django_vue_connector.apps.DjangoVueConnectorConfig',
+    'django_vue_connector',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
