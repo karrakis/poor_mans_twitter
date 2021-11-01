@@ -11,6 +11,9 @@ Vue.use(VueAxios, axios)
 import constLib from "./constants";
 Vue.use(constLib);
 
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+axios.defaults.xsrfCookieName = 'csrftoken'
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')

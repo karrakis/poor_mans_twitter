@@ -1,13 +1,16 @@
 <template>
   <div class="home">
     <h1>{{ $constLib('HomeTitle') }}</h1>
-    <form class="tweeterbox-form" @submit.prevent="sendTweet">
-      <input v-model="name" class="namebox" placeholder="name"/>
-      <textarea v-model="tweet" class="tweeterbox" placeholder="tweet!"/>
-      <button />
-    </form>
+    <div>
+      <form class="tweeterbox-form" @submit.prevent="sendTweet">
+        <input name="name" v-model="name" class="namebox" placeholder="name"/>
+        <textarea name="tweet" v-model="tweet" class="tweeterbox" placeholder="tweet!"/>
+        <button class="submit-button">Submit</button>
+      </form>
+    </div>
+    <button class="submit-button" @click="fetchTweets">Refresh</button>
     <div class="boxotweets">
-      {{ form.tweet }}
+      {{ tweets }}
     </div>
   </div>
 </template>
@@ -18,10 +21,23 @@ export default {
   props: {},
   data: function() {
     return {
-      form: {
-        name: '',
-        tweet: ''
-      }
+      tweets: []
+    }
+  },
+  methods: {
+    async sendTweet (event) {
+      await this.$http.post(
+        '/tweetstweets/', 
+        { 
+          name: event.target.elements.name.value,
+          tweet: event.target.elements.tweet.value 
+        }
+      );
+    },
+    fetchTweets () {
+      this.$http.get(
+        '/tweetstweets/'
+      ).then(response => this.tweets = response.data);
     }
   }
 }
@@ -35,6 +51,10 @@ export default {
     align-items: center;
     justify-content: start;
     height: 100%;
+  }
+
+  .submit-button {
+    padding: 2rem 4rem;
   }
 
   .tweeterbox-form {
